@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import User from '../interfaces/user.interface';
+import IBook from '../interfaces/book.interface';
 
 const user = Joi.object<User>({
   firstName: Joi.string().required(),
