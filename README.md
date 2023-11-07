@@ -1,84 +1,110 @@
 
-# Rent Wise 
+### Book Routes
 
-The Property Portal is a web application that allows users to search for properties, list their own properties for sale or rent, and connect with potential buyers or tenants. This portal provides a convenient platform for users to explore, discover, and engage with real estate listings.
+This file contains the routes related to managing books.
 
-## Features
+- **GET /books**
+  - Description: Retrieve a list of all books.
+  - Controller: `bookController.getAllBooks`
+  - Response: Returns a list of book objects.
 
-- Property Search: Users can search for properties based on various criteria such as location, property type, price range, and more.
+- **GET /books/:bookId**
+  - Description: Retrieve a specific book by its unique ID.
+  - Controller: `bookController.getBookById`
+  - Response: Returns the details of the specified book.
 
-- Property Listing: Users can list their own properties for sale or rent by providing property details, pricing information, and uploading photos.
+- **POST /books**
+  - Description: Create a new book.
+  - Middleware: `trimRequestBody` (used to remove extra whitespace from the request body).
+  - Controller: `bookController.createBook`
+  - Request Body: Expects a JSON object with book details.
+  - Response: Returns the newly created book object.
 
-- User Authentication: User registration and authentication functionality is implemented to ensure secure access to the portal.
+- **PATCH /books/:bookId**
+  - Description: Update an existing book by its unique ID.
+  - Middleware: `trimRequestBody` (used to remove extra whitespace from the request body).
+  - Controller: `bookController.updateBook`
+  - Request Body: Expects a JSON object with book details to update.
+  - Response: Returns the updated book object.
 
-- Property Management: Users can manage their listed properties, edit property information, mark properties as sold or rented, and remove listings.
+- **DELETE /books/:bookId**
+  - Description: Delete a specific book by its unique ID.
+  - Controller: `bookController.deleteBook`
+  - Response: Returns a confirmation message indicating the deletion.
 
-- Messaging System: Users can communicate with each other through an integrated messaging system to inquire about properties or negotiate deals.
 
-## Technologies Used
+# Books API
 
-- Frontend: HTML, CSS, JavaScript (or a frontend framework like React, Angular, or Vue.js)
+## Overview
 
-- Backend: Node.js with Express.js (or any other backend framework of your choice)
+The Books API is a Node.js and Express-based application designed for managing book-related data. This documentation provides information on setting up and using the API.
 
-- Database: MongoDB (or any other database of your choice)
+## Installation
 
-- Authentication: JWT (JSON Web Tokens) for user authentication and authorization
+Before running the project, make sure to install the required dependencies. Use the following command:
 
-- File Storage: Integration with cloud storage services like AWS S3 or Firebase Storage for storing property photos
+```bash
+npm install
 
-- Additional Libraries and Tools: Use any relevant libraries or tools to enhance the functionality and user experience of the portal (e.g., Mongoose for MongoDB, Passport.js for authentication, Socket.io for real-time messaging)
 
-## Getting Started
+Usage
+Development Mode
+To run the application in development mode with hot-reloading, use the following command
+npm run start
 
-### Prerequisites
 
-- Node.js and npm (Node Package Manager) installed on your machine
+Development Mode (without PM2)
+For development purposes without PM2, use the following command:
+npm run dev
 
-- MongoDB database setup or a cloud-hosted MongoDB instance
+Production Mode
+To run the application in production mode with PM2, use the following command:
+npm run prod
 
-### Installation
 
-1. Clone the repository: `git clone https://github.com/your-username/property-portal.git`
+Code Quality
+To check your code for linting errors, use:
+npm run lint
 
-2. Navigate to the project directory: `cd property-portal`
+To format your code, use:
+npm run format
 
-3. Install dependencies: `npm install`
 
-4. Set up environment variables: Create a `.env` file and configure the necessary environment variables such as database connection URI, JWT secret key, etc.
 
-5. Start the application: `npm start`
+- **Use of TypeScript**:
+  - **Pros**:
+    - Improved Type Safety: TypeScript provides static typing, which helps catch type-related errors at compile-time, reducing runtime errors.
+    - Better IDE Support: TypeScript enhances code completion and refactoring features in development tools, making coding more efficient.
+    - Enhanced Readability: Strongly-typed code is often more self-documenting, making it easier for developers to understand and maintain the codebase.
 
-6. Open the application in your browser: `http://localhost:3000`
+- **Class-Based Approach**:
+  - **Explanation**:
+    - A class-based approach is used for organizing and structuring the code. Classes are a fundamental building block in object-oriented programming, making it easier to encapsulate data and behavior, leading to cleaner and more maintainable code.
 
-## Contributing
+- **Service Layer**:
+  - **Explanation**:
+    - A service layer is introduced to separate business logic from controllers, improving code organization and reusability. This architecture follows the principle of Separation of Concerns (SoC) and keeps controllers lightweight and focused on handling HTTP requests.
 
-Contributions are welcome! If you would like to contribute to this project, please follow these steps:
+- **Use of Joi Validations**:
+  - **Explanation**:
+    - Joi is a popular validation library that helps ensure that data sent to the server is valid and safe. It enforces data integrity by specifying the structure and constraints for request data, reducing the risk of processing malformed or malicious inputs.
 
-1. Fork the repository.
+ Certainly, here's the information about the use of PM2 formatted as you requested:
 
-2. Create a new branch for your feature or bug fix: `git checkout -b feature-name`
+- **Use of PM2 (Process Manager)**:
+-  **Pros**:
+  - **Process Management**: PM2 simplifies process management by allowing you to start, stop, and monitor Node.js applications. It can also automatically restart the application in case of a crash, improving application availability.
+  
+  - **Load Balancing**: PM2 can manage multiple instances of your application, distributing incoming requests to different instances, which can enhance the application's performance and scalability.
 
-3. Make your changes and commit them: `git commit -m 'Add some feature'`
+  - **Logging and Monitoring**: PM2 provides built-in tools for logging and monitoring application performance, making it easier to diagnose issues and track application health.
 
-4. Push your changes to the branch: `git push origin feature-name`
+  - **Environment Management**: PM2 allows you to configure and manage different environments, such as development, staging, and production, with separate configurations for each.
+  
+  - **Ecosystem File**: PM2 can be configured using an ecosystem file, which defines various aspects of application management, making it easier to maintain and deploy applications.
 
-5. Submit a pull request detailing your changes.
 
-## License
 
-This project is licensed under the [MIT License](LICENSE.md).
 
-## Acknowledgements
 
-- Mention any external resources or tutorials that were helpful during the development of the project.
 
-- If you used any open-source libraries or frameworks, give credit to the authors and provide links to their repositories.
-
-## Contact
-
-For any inquiries or support, please email [your-email@example.com](mailto:your-email@example.com).
-
----
-
-Feel free to modify this README template to suit the specific needs of your property portal project. Include any additional sections or information that you think would be helpful for users and contributors.

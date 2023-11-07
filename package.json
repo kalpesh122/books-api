@@ -1,15 +1,14 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Books store api",
   "main": "index",
   "scripts": {
-    "start": "pm2 start --interpreter ts-node-dev --name AuthBoilerplate src/api/v1/index.ts",
+    "start": "pm2 start --interpreter ts-node-dev --name books-api src/api/v1/index.ts",
     "dev": "ts-node-dev src/api/v1/index",
-    "prod": "pm2 start --interpreter ts-node --name AuthBoilerplate src/api/v1/index.ts",
+    "prod": "pm2 start --interpreter ts-node --name books-api src/api/v1/index.ts",
     "lint": "eslint --ignore-path .eslintignore --ext .js,.ts .",
-    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
-    "seed": "ts-node src/scripts/dataCreation/users.seed.ts"
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
   },
   "keywords": [],
   "author": "Kalpesh mali",
@@ -45,7 +44,7 @@
     "redis": "^4.6.6",
     "supertest": "^6.3.3",
     "ts-node": "^10.9.1",
-    "uuid": "^9.0.0",
+    "uuid": "^9.0.1",
     "winston": "^3.9.0",
     "winston-elasticsearch": "^0.17.2"
   },

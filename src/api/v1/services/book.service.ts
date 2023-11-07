@@ -9,7 +9,7 @@ class UserService {
    */
   public async createBook(body: IBook): Promise<IBook> {
     try {
-      const book = await this.book.create({ body });
+      const book = await this.book.create(body);
       return book;
     } catch (error) {
       throw new Error('Something went wrong');
@@ -18,14 +18,14 @@ class UserService {
 
   /**
    *
-   * @Update a Book 
+   * @Update a Book
    */
-  public async updateBook(body: IBook): Promise<IBook> {
+  public async updateBook(body: IBook, bookId: string): Promise<IBook> {
     try {
-      const updatedUser = await this.book.updateOne({ _id: body._id }, body);
-      if (!updatedUser) {
-        throw new Error('Property not found or not modified');
-      }
+      const updatedUser = await this.book.updateOne(
+        { bookId, deletedAt: null },
+        body
+      );
       return body;
     } catch (error) {
       throw new Error('Something went wrong');
@@ -44,36 +44,29 @@ class UserService {
     }
   }
 
-   /**
-   * @finding a AllBooks 
+  /**
+   * @finding a AllBooks
    */
-   public async getBooks(): Promise<IBook[] | null> {
+  public async getBooks(): Promise<IBook[] | null> {
     try {
-      const user = await this.book.find({ deletedAt:null });
+      const user = await this.book.find({ deletedAt: null });
       return user;
     } catch (error) {
       throw new Error('Something went wrong');
     }
   }
 
-
-
-    /**
+  /**
    *
-   * @Delete a Book 
+   * @Delete a Book
    */
-    public async deleteBook(body: IBook): Promise<IBook> {
-      try {
-        const updatedUser = await this.book.deleteOne({ _id: body._id });
-        if (!updatedUser) {
-          throw new Error('Property not found or not modified');
-        }
-        return body;
-      } catch (error) {
-        throw new Error('Something went wrong');
-      }
+  public async deleteBook(bookId: string): Promise<any | null> {
+    try {
+      const deleteBook = await this.book.deleteOne({ bookId, deletedAt: null });
+      return deleteBook;
+    } catch (error) {
+      throw new Error('Something went wrong');
     }
-  
-
+  }
 }
 export default UserService;

@@ -1,7 +1,9 @@
 import express, { Router } from 'express';
 import BookController from '../controllers/book.controller';
 import Route from '../utils/interfaces/route.interface';
-
+import trimRequestBody from '../middleware/trimRequestBody.middleware';
+import {createBook} from '../validations/book.validation';
+import validationMiddleware from '../middleware/validation.middleware';
 
 class BookRoute implements Route {
   public router: Router;
@@ -13,11 +15,15 @@ class BookRoute implements Route {
     this.initialiseRoutes();
   }
   private initialiseRoutes(): void {
-    this.router.get('/', this.bookController.getAllBooks);
-    // this.router.get('/:id', this.userController.getUser);
-    // this.router.post('/', this.userController.createUser);
-    // this.router.patch('/:id', this.userController.updateUser);
-    // this.router.delete('/:id', this.userController.deleteUser);
+    this.router.get('/books', this.bookController.getAllBooks);
+    this.router.get('/books/:bookId', this.bookController.getBookById);
+    this.router.post('/books', trimRequestBody,validationMiddleware(createBook) ,this.bookController.createBook);
+    this.router.patch(
+      '/books/:bookId',
+      trimRequestBody,
+      this.bookController.updateBook
+    );
+    this.router.delete('/books/:bookId', this.bookController.deleteBook);
   }
 
   public getRouter(): typeof BookRoute {

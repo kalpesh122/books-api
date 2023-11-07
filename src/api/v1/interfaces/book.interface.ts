@@ -1,7 +1,7 @@
-import  { Document } from 'mongoose';
+import { Document } from 'mongoose';
 
 // Book Document
-type IBook =  {
+type IBook = {
   bookId: string;
   name: string;
   isbn: string;
@@ -43,6 +43,5 @@ type IBook =  {
   updatedAt: Date;
   deletedAt: Date | null;
 } & Document;
-
 
 export default IBook;

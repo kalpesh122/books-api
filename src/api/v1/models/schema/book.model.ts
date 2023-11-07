@@ -1,8 +1,9 @@
 import mongoose, { Model } from 'mongoose';
 import IBook from '../../interfaces/book.interface';
+import { v4 as uuidv4 } from 'uuid'; // Import the uuid package
 
 // Hard-coded categories
-const categories = ['Thriller', 'Action'];
+const categories = ['Thriller', 'Action', 'Romantic'];
 
 // Hard-coded authors
 const authors = ['Shreyash', 'Bipin', 'Kalpesh'];
@@ -10,11 +11,9 @@ const authors = ['Shreyash', 'Bipin', 'Kalpesh'];
 // Hard-coded distributors
 const distributors = ['Praful', 'Akash'];
 
-
-
 // Book Schema
 const bookSchema = new mongoose.Schema<IBook>({
-  bookId: { type: String, required: true },
+  bookId: { type: String, default: uuidv4, required: true },
   name: { type: String, required: true },
   isbn: { type: String, required: true },
   category: { type: String, enum: categories, required: true },
@@ -67,4 +66,4 @@ const bookSchema = new mongoose.Schema<IBook>({
 // Define the Book model
 const BookModel: Model<IBook> = mongoose.model('Book', bookSchema);
 
-export default BookModel ;
+export default BookModel;
