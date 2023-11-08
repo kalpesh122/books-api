@@ -9,9 +9,10 @@ class BookController {
     this.bookService = new BookService();
   }
   public getAllBooks = asyncHandler(
-    async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
       const books = await this.bookService.getBooks();
-      res.status(200).json({
+  
+      return res.status(200).json({
         success: true,
         message: books?.length
           ? 'All Books fetched  successfully'
@@ -22,11 +23,17 @@ class BookController {
     }
   );
   public getBookById = asyncHandler(
-    async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
       let bookId: string =
         (req.params.bookId && req.params.bookId.toString()) || '';
       const book = await this.bookService.getBookById(bookId);
-      res.status(200).json({
+      if (!book){
+        return res.status(200).json({
+          success:false,
+          message: `Book does not exists for bookId :- ${bookId}`
+        })
+      }
+      return res.status(200).json({
         success: true,
         message: 'Book fetched successfully',
         book,
@@ -34,10 +41,10 @@ class BookController {
     }
   );
   public createBook = asyncHandler(
-    async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
       let bookData: IBook = req.body;
       const book = await this.bookService.createBook(bookData);
-      res.status(201).json({
+      return res.status(201).json({
         success: true,
         message: 'Book created successfully',
         book,
@@ -45,13 +52,23 @@ class BookController {
     }
   );
   public updateBook = asyncHandler(
-    async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
       let bookData: IBook = req.body;
       let bookId: string =
         (req.params.bookId && req.params.bookId.toString()) || '';
+      
+      const bookExists = await this.bookService.getBookById(bookId);
+      
+      if (!bookExists){
+        return res.status(200).json({
+          success:false,
+          message: `Book does not exists for bookId :- ${bookId}`
+        })
+      };
+
 
       const book = await this.bookService.updateBook(bookData, bookId);
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
         message: 'Book updated successfully',
         book,
@@ -59,14 +76,22 @@ class BookController {
     }
   );
   public deleteBook = asyncHandler(
-    async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
       let bookId: string =
         (req.params.bookId && req.params.bookId.toString()) || '';
+
+        const bookExists = await this.bookService.getBookById(bookId);
+      
+        if (!bookExists){
+          return res.status(200).json({
+            success:false,
+            message: `Book does not exists for bookId :- ${bookId}`
+          })
+        };
       const book = await this.bookService.deleteBook(bookId);
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
         message: 'Book deleted successfully',
-        book,
       });
     }
   );

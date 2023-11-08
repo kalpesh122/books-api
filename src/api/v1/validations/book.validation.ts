@@ -55,7 +55,6 @@ const createBook = Joi.object<IBook>({
 
 
 const updateBook = Joi.object<IBook>({
-  bookId: Joi.string().required(),
   name: Joi.string().required(),
   isbn: Joi.string().required(),
   category: Joi.string().required(),
@@ -100,8 +99,8 @@ const updateBook = Joi.object<IBook>({
       wareHouseId: Joi.string(),
     })
   ),
-  createdAt: Joi.date(),
-  updatedAt: Joi.date(),
+  createdAt: Joi.date().allow(null),
+  updatedAt: Joi.date().allow(null),
   deletedAt: Joi.date().allow(null),
 });
 

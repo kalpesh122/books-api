@@ -88,20 +88,16 @@ npm run format
 - **Use of Joi Validations**:
   - **Explanation**:
     - Joi is a popular validation library that helps ensure that data sent to the server is valid and safe. It enforces data integrity by specifying the structure and constraints for request data, reducing the risk of processing malformed or malicious inputs.
+    
+  -**Included Postman collection for api testing**:
+    -**Explanation**:
+      -Included postman collection for api testing and it also works as api documentation
 
- Certainly, here's the information about the use of PM2 formatted as you requested:
 
 - **Use of PM2 (Process Manager)**:
 -  **Pros**:
   - **Process Management**: PM2 simplifies process management by allowing you to start, stop, and monitor Node.js applications. It can also automatically restart the application in case of a crash, improving application availability.
   
-  - **Load Balancing**: PM2 can manage multiple instances of your application, distributing incoming requests to different instances, which can enhance the application's performance and scalability.
-
-  - **Logging and Monitoring**: PM2 provides built-in tools for logging and monitoring application performance, making it easier to diagnose issues and track application health.
-
-  - **Environment Management**: PM2 allows you to configure and manage different environments, such as development, staging, and production, with separate configurations for each.
-  
-  - **Ecosystem File**: PM2 can be configured using an ecosystem file, which defines various aspects of application management, making it easier to maintain and deploy applications.
 
 
 

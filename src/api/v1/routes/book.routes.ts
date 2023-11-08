@@ -2,7 +2,7 @@ import express, { Router } from 'express';
 import BookController from '../controllers/book.controller';
 import Route from '../utils/interfaces/route.interface';
 import trimRequestBody from '../middleware/trimRequestBody.middleware';
-import {createBook} from '../validations/book.validation';
+import {createBook, updateBook} from '../validations/book.validation';
 import validationMiddleware from '../middleware/validation.middleware';
 
 class BookRoute implements Route {
@@ -21,6 +21,7 @@ class BookRoute implements Route {
     this.router.patch(
       '/books/:bookId',
       trimRequestBody,
+      validationMiddleware(updateBook),
       this.bookController.updateBook
     );
     this.router.delete('/books/:bookId', this.bookController.deleteBook);
